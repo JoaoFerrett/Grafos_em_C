@@ -133,7 +133,11 @@ int main(){
         printf("6 - Print the transpose Graph \n");
         printf("0 - Exit \n\n");
 
-        scanf("%d", &ans);
+        if (scanf("%d", &ans) != 1) {
+        printf("Invalid input! Please enter a number.\n");
+        while (getchar() != '\n'); // limpa buffer
+        continue;
+        }
 
         switch (ans)
         {
@@ -224,6 +228,5 @@ int main(){
             break;
         }
     }
+
 }
-
-
