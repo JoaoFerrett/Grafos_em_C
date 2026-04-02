@@ -1,4 +1,3 @@
-//marcos fontes
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -20,6 +19,7 @@ void initialize(VERTEX *g, int v){
         g[i].start = NULL;
     }
 }
+
 
 bool edgeExists(VERTEX *g, int v1, int v2){
     NODE *p = g[v1].start;
@@ -68,19 +68,21 @@ bool deleteEdge(VERTEX *g, int v1, int v2){
     return true;
 }
 
+
 void printG(VERTEX *g, int v){
     int i;
     for(i = 0; i < v; i++){
-        printf("%d ", i);
+        printf("%d", i);
         NODE *p = g[i].start;
         while(p){
-            printf("%d", p->adj);
+            printf(" -> %d", p->adj);
             p = p->next;
         }
         printf("\n");
     }
     printf("\n");
 }
+
 
 bool verifySubG(VERTEX *g, VERTEX *gz, int v){
     int i;
@@ -93,6 +95,7 @@ bool verifySubG(VERTEX *g, VERTEX *gz, int v){
     }
     return true;
 }
+
 
 VERTEX *transpose(VERTEX *g, int v){
     VERTEX *gt = malloc(v * sizeof(VERTEX));
@@ -135,7 +138,10 @@ int main(){
         switch (ans)
         {
         case 1:
-            printf("Insert the Graph size (i-n): \n");
+        if(g != NULL){
+            free(g);
+        }
+            printf("Enter the number of vertices in the Graph (0 - n): \n");
             scanf("%d", &v);
             g = malloc(v * sizeof(VERTEX));
             initialize(g, v);
@@ -147,12 +153,15 @@ int main(){
                 printf("You have to create a Graph first! \n\n");
                 break;
             }
-
             int v1, v2;
             printf("The edge goes from (node number): \n");
             scanf("%d", &v1);
             printf("Goes to (node number): \n");
             scanf("%d", &v2);
+            if(v1 < 0 || v1 >= v || v2 < 0 || v2 >= v){
+                printf("You have to choice an existent Vertex! (0 to %d)\n\n", v-1);
+                break;
+            }
             addEdge(g, v1, v2);
             printf("The Edge was created successfully! \n\n");
             break;
@@ -168,6 +177,7 @@ int main(){
             printf("Node from it ends \n");
             scanf("%d", &n2);
             deleteEdge(g, n1, n2);
+
             if(deleteEdge(g, n1, n2)){
                 printf("The Edge was deleted successfully! \n");
             }else
@@ -214,8 +224,6 @@ int main(){
             break;
         }
     }
-
-//deleteEdge deletando vértices e não arestas
 }
 
 
