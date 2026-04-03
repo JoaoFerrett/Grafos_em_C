@@ -106,3 +106,35 @@ VERTEX *transpose(VERTEX *g, int v){
     }
     return gt;
 }
+
+void deep(VERTEX *g ,int i){
+    g[i].flag = 1;
+    NODE *p = g[i].start;
+    
+    while(p){
+        if(g[p->adj].flag == 0) deep(g, p->adj);
+
+        p = p->next;
+    }
+    g[i].flag == 2;
+}
+
+void deepAgain(VERTEX *g, int i, int j, bool *found){
+
+    if(i == j){
+        *found = true;
+        return;
+    }
+
+    g[i].flag = 1;
+    NODE *p = g[i].start;
+
+    while(p){
+        if(g[p->adj].flag == 0) deepAgain(g, p->adj, j, found);
+        
+        if(*found) return;
+
+        p = p->next;
+    }
+    g[i].flag = 2;
+}

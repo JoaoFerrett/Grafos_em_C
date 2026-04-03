@@ -22,7 +22,7 @@ int main(){
         printf("0 - Exit \n\n");
 
         if(scanf("%d", &ans) != 1){
-        printf("Invalid input! Please enter a number.\n");
+        printf("Invalid input! Please enter a number.\n\n");
         while (getchar() != '\n');
         continue;
         }
@@ -68,12 +68,14 @@ int main(){
             scanf("%d", &n1);
             printf("Node from it ends \n");
             scanf("%d", &n2);
-            deleteEdge(g, n1, n2);
 
-            if(deleteEdge(g, n1, n2)){
-                printf("The Edge was deleted successfully! \n");
-            }else
-                printf("This Edge doesn't exists \n");
+            if(!deleteEdge(g, n1, n2)){
+                printf("This Edge doesn't exists! \n\n");
+                break;
+            }
+            
+            deleteEdge(g, n1, n2);
+            printf("The Edge was deleted successfully! \n");
             break;
         
         case 4:
@@ -112,9 +114,10 @@ int main(){
             break;
         
         default:
-            printf("Invalid number/option! \n");
+            printf("Invalid number/option! \n\n");
             break;
         }
     }
 
+    return 0;
 }
